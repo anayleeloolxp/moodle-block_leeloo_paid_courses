@@ -668,7 +668,8 @@ span.leeloo_price {
     display: block;
     text-align: center;
 }
-a.leeloo_cert,.leeloo_view {
+a.leeloo_cert,
+.leeloo_view {
     font-size: 24px;
     display: block;
     text-align: center;
