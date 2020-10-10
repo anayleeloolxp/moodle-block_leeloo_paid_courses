@@ -23,7 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
-require_once ($CFG->libdir . '/externallib.php');
+require_once($CFG->libdir . '/externallib.php');
 /**
  * leeloo_paid_courses block rendrer
  *
@@ -539,18 +539,18 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $jsessionid = $SESSION->jsession_id;
 
         $certificartxt = get_string('certificar', 'block_leeloo_paid_courses');
-        
-        $leeloodiv = "<div 
-            class='leeloo_div' 
+
+        $leeloodiv = "<div
+            class='leeloo_div'
             id='leeloo_div_$courseid'>
                 <span class='leeloo_price'>
                     $ $productprice
                 </span>
-                <a 
-                    class='leeloo_cert' 
+                <a
+                    class='leeloo_cert'
                     id='leeloo_cert_$courseid'
-                    data-toggle='modal' 
-                    data-target='#leelooModal_$courseid' 
+                    data-toggle='modal'
+                    data-target='#leelooModal_$courseid'
                     href='https://leeloolxp.com/products-listing/product/$urlalias?session_id=$jsessionid'>
                         $certificartxt
                 </a>
