@@ -23,7 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
-require_once($CFG->libdir . '/externallib.php');
+require_once ($CFG->libdir . '/externallib.php');
 /**
  * leeloo_paid_courses block rendrer
  *
@@ -522,24 +522,40 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
      * @param stdObject $config config from leeloo
      * @return string
      */
-    public function course_leeloo($course,$config) {
+    public function course_leeloo($course, $config) {
         global $DB;
         global $USER;
         $courseid = $course->id;
         $coursename = $course->fullname;
-        $leeloocourse = $DB->get_record_sql('SELECT * FROM {tool_leeloo_courses_sync} where courseid = '.$course->id);
+        $leeloocourse = $DB->get_record_sql('SELECT * FROM {tool_leeloo_courses_sync} where courseid = ' . $course->id);
 
         $context = context_course::instance($course->id);
-        
-        
+
         $productprice = $leeloocourse->productprice;
         $productid = $leeloocourse->productid;
         $productalias = $leeloocourse->product_alias;
-        $urlalias = $productid.'-'.$productalias;
+        $urlalias = $productid . '-' . $productalias;
         global $SESSION;
         $jsessionid = $SESSION->jsession_id;
-        $leeloodiv = "<div class='leeloo_div' id='leeloo_div_$courseid'><span class='leeloo_price'>$ $productprice</span><a class='leeloo_cert' id='leeloo_cert_$courseid' data-toggle='modal' data-target='#leelooModal_$courseid' href='https://leeloolxp.com/products-listing/product/$urlalias?session_id=$jsessionid'>Certificar</a></div>";
+
+        $certificartxt = get_string('certificar', 'block_leeloo_paid_courses');
         
+        $leeloodiv = "<div 
+            class='leeloo_div' 
+            id='leeloo_div_$courseid'>
+                <span class='leeloo_price'>
+                    $ $productprice
+                </span>
+                <a 
+                    class='leeloo_cert' 
+                    id='leeloo_cert_$courseid'
+                    data-toggle='modal' 
+                    data-target='#leelooModal_$courseid' 
+                    href='https://leeloolxp.com/products-listing/product/$urlalias?session_id=$jsessionid'>
+                        $certificartxt
+                </a>
+        </div>";
+
         $leeloomodal = "<div class='modal fade leeloo_FC_Modal' tabindex='-1' aria-labelledby='gridSystemModalLabel' id='leelooModal_$courseid' role='dialog'>
             <div class='modal-dialog'>
                 <div class='modal-content'>
@@ -548,7 +564,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                         <button type='button' class='close' data-dismiss='modal'>&times;</button>
                     </div>
                     <div class='modal-body'>
-                        
+
                     </div>
                 </div>
             </div>
@@ -556,15 +572,13 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         ";
 
         if (!is_enrolled($context, $USER)) {
-            return html_writer::div($leeloodiv, 'course_description').html_writer::div($leeloomodal, 'leeloomodal');
-        }else{
+            return html_writer::div($leeloodiv, 'course_description') . html_writer::div($leeloomodal, 'leeloomodal');
+        } else {
             $courseurl = new moodle_url('/course/view.php', array('id' => $course->id));
-            $attributes = array('title' => $course->fullname,'class' => 'leeloo_view');
+            $attributes = array('title' => $course->fullname, 'class' => 'leeloo_view');
             $link = html_writer::link($courseurl, 'View Course', $attributes);
             return html_writer::div($link, 'course_description');
         }
-        
-        
     }
 
     /**

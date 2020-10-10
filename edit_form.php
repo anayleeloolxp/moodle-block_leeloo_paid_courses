@@ -39,12 +39,20 @@ class block_leeloo_paid_courses_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
 
         global $DB;
-        $leeloo_courses = $DB->get_records_sql('SELECT c.*,lc.productid,lc.productprice FROM {tool_leeloo_courses_sync} as lc LEFT JOIN {course} as c ON c.id = lc.courseid where lc.enabled = 1');
-        
+        $leeloocourses = $DB->get_records_sql(
+            'SELECT
+            {course}.*,
+            {tool_leeloo_courses_sync}.productid,
+            {tool_leeloo_courses_sync}.productprice
+            FROM {tool_leeloo_courses_sync}
+            LEFT JOIN {course}
+            ON {course}.id = {tool_leeloo_courses_sync}.courseid
+            where {tool_leeloo_courses_sync}.enabled = 1'
+        );
+
         $availablecourseslist = array();
-        foreach ($leeloo_courses as $c) {
+        foreach ($leeloocourses as $c) {
             $availablecourseslist[$c->id] = $c->shortname . ' : ' . $c->fullname;
-            
         }
 
         $select = $mform->addElement('select', 'config_courses', get_string('featured_courses', 'block_leeloo_paid_courses'), $availablecourseslist, $attributes);

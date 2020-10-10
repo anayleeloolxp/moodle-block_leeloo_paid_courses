@@ -116,3 +116,4 @@ $string['nolicense'] = 'Invalid Leeloo LXP License ID';
 $string['license'] = 'Leeloo LXP License ID';
 
 $string['featured_courses'] = "Paid Courses";
+$string['certificar'] = "Certificar";
