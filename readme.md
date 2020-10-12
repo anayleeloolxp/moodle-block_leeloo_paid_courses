@@ -1,4 +1,5 @@
 # Leeloo LXP Paid Courses Block
+This block allows admin to show Courses which are paid in grid/list view. User can purchase them via Leeloo LXP inside popup. and can get enrolled in them.
 
 Installation Instructions
 =========================
