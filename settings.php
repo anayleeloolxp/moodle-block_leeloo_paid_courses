@@ -25,10 +25,18 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_configtext(
+
+    require_once($CFG->dirroot . '/blocks/leeloo_paid_courses/lib.php');
+
+    $setting = new admin_setting_configtext(
         'block_leeloo_paid_courses/license',
         get_string('license', 'block_leeloo_paid_courses'),
         get_string('license', 'block_leeloo_paid_courses'),
         0
-    ));
+    );
+    $setting->set_updatedcallback(updateconfpaid_courses());
+    $settings->add($setting);
+
+    $setting = new admin_setting_configpaid_courses('block_leeloo_paid_courses/settingsjson', '', '', '', PARAM_RAW);
+    $settings->add($setting);
 }

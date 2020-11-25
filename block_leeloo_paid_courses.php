@@ -67,50 +67,8 @@ class block_leeloo_paid_courses extends block_base {
         require_once($CFG->libdir . '/filelib.php');
 
         $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
-
-        $url = 'https://leeloolxp.com/api_moodle.php/?action=page_info';
-        $postdata = '&license_key=' . $leeloolxplicense;
-
-        $curl = new curl;
-
-        $options = array(
-            'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_HEADER' => false,
-            'CURLOPT_POST' => count($postdata),
-        );
-
-        if (!$output = $curl->post($url, $postdata, $options)) {
-            $this->content->text = get_string('nolicense', 'block_leeloo_paid_courses');
-            return $this->content;
-        }
-
-        $infoleeloolxp = json_decode($output);
-
-        if ($infoleeloolxp->status != 'false') {
-            $leeloolxpurl = $infoleeloolxp->data->install_url;
-        } else {
-            $this->content->text = get_string('nolicense', 'block_leeloo_paid_courses');
-            return $this->content;
-        }
-
-        $url = $leeloolxpurl . '/admin/Theme_setup/get_courses_for_sale_settings';
-
-        $postdata = '&license_key=' . $leeloolxplicense;
-
-        $curl = new curl;
-
-        $options = array(
-            'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_HEADER' => false,
-            'CURLOPT_POST' => count($postdata),
-        );
-
-        if (!$output = $curl->post($url, $postdata, $options)) {
-            $this->content->text = get_string('nolicense', 'block_leeloo_paid_courses');
-            return $this->content;
-        }
-
-        $resposedata = json_decode($output);
+        $settingsjson = get_config('block_leeloo_paid_courses')->settingsjson;
+        $resposedata = json_decode(base64_decode($settingsjson));
         $settingleeloolxp = $resposedata->data->courses_for_sale;
 
         if (empty($settingleeloolxp->course_title)) {
@@ -188,5 +146,13 @@ class block_leeloo_paid_courses extends block_base {
      */
     public function applicable_formats() {
         return array('all' => true);
+    }
+    
+    /**
+     * Get settings from Leeloo
+     */
+    public function cron() {
+        require_once($CFG->dirroot . '/blocks/leeloo_paid_courses/lib.php');
+        updateconfpaid_courses();
     }
 }
