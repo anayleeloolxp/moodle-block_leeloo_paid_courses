@@ -31,3 +31,7 @@ $plugin->component = 'block_leeloo_paid_courses'; // Full name of the plugin (us
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.0.0';
 $plugin->cron = 60*5; //5mins.
+$plugin->dependencies = array(
+    'auth_leeloo_pay_sso' => 2020022105,
+    'tool_leeloo_courses_sync' => 2019062700
+);
