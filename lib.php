@@ -116,7 +116,7 @@ class admin_setting_configpaid_courses extends admin_setting {
 
     /**
      * Return an XHTML string for the setting
-     * 
+     *
      * @param string $data The data
      * @param string $query The query
      * @return string Returns an XHTML string
@@ -127,4 +127,3 @@ class admin_setting_configpaid_courses extends admin_setting {
 
     }
 }
-?>
