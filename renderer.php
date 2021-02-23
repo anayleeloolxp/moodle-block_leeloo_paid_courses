@@ -93,12 +93,12 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $gridsplit = intval(12 / count($courses)); // Added intval to avoid any float.
 
         // Set a minimum size for the course 'cards'.
-        $colsize = intval($config->coursegridwidth) > 0 ? intval($config->coursegridwidth) : BLOCKS_LEELOO_PAID_COURSES_DEFAULT_COL_SIZE;
+        $colsize = intval(@$config->coursegridwidth) > 0 ? intval(@$config->coursegridwidth) : BLOCKS_LEELOO_PAID_COURSES_DEFAULT_COL_SIZE;
         if ($gridsplit < $colsize) {
             $gridsplit = $colsize;
         }
 
-        $courseclass = $config->startgrid == BLOCKS_LEELOO_PAID_COURSES_STARTGRID_YES ? "grid" : "list";
+        $courseclass = @$config->startgrid == BLOCKS_LEELOO_PAID_COURSES_STARTGRID_YES ? "grid" : "list";
         $startvalue = $courseclass == "list" ? "12" : $gridsplit;
 
         $listonly = false;
@@ -140,7 +140,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
 
             $teacherimages = html_writer::start_div('teacher_image_wrap');
             $teachernames = '';
-            if ($course->id > 0 && !empty($role) && $config->showteachers != BLOCKS_LEELOO_PAID_COURSES_SHOWTEACHERS_NO) {
+            if ($course->id > 0 && !empty($role) && @$config->showteachers != BLOCKS_LEELOO_PAID_COURSES_SHOWTEACHERS_NO) {
                 $context = context_course::instance($course->id);
                 $teachers = get_role_users($role->id, $context, false, $fields);
                 foreach ($teachers as $key => $teacher) {
@@ -210,12 +210,12 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 $html .= html_writer::div($teachernames, 'teacher_names');
             }
 
-            if ($config->showcategories != BLOCKS_LEELOO_PAID_COURSES_SHOWCATEGORIES_NONE) {
+            if (@$config->showcategories != BLOCKS_LEELOO_PAID_COURSES_SHOWCATEGORIES_NONE) {
                 // List category parent or categories path here.
                 $currentcategory = core_course_category::get($course->category, IGNORE_MISSING);
                 if ($currentcategory !== null) {
                     $html .= html_writer::start_tag('div', array('class' => 'categorypath'));
-                    if ($config->showcategories == BLOCKS_LEELOO_PAID_COURSES_SHOWCATEGORIES_FULL_PATH) {
+                    if (@$config->showcategories == BLOCKS_LEELOO_PAID_COURSES_SHOWCATEGORIES_FULL_PATH) {
                         foreach ($currentcategory->get_parents() as $categoryid) {
                             $category = core_course_category::get($categoryid, IGNORE_MISSING);
                             if ($category !== null) {
@@ -435,7 +435,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                     '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
                     $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
                 if ($isimage) {
-                    if (is_null($config->leeloo_featured_courses_bgimage) ||
+                    if (is_null(@$config->leeloo_featured_courses_bgimage) ||
                         $config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE) {
                         // Embed the image url as a img tag sweet...
                         $image = html_writer::empty_tag('img', array('src' => $url, 'class' => 'course_image'));
@@ -472,7 +472,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             // Still a pre Moodle 3.3 release. Use pix_url because image_url doesn't exist yet.
             $default = $this->output->pix_url('default', 'block_leeloo_paid_courses');
         }
-        if ($courseimagedefault = $config->courseimagedefault) {
+        if (@$courseimagedefault = $config->courseimagedefault) {
             // Return an img element with the image in the block settings to use for the course.
             $imageurl = $courseimagedefault;
         } else {
@@ -481,7 +481,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         }
 
         // Do we need a CSS soloution or is a img good enough?.
-        if (is_null($config->leeloo_featured_courses_bgimage) || $config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE) {
+        if (is_null(@$config->leeloo_featured_courses_bgimage) || @$config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE) {
             // Embed the image url as a img tag sweet...
             $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'course_image'));
             return html_writer::div($image, 'image_wrap');
@@ -504,7 +504,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
     public function course_description($course, $config) {
         $course = new core_course_list_element($course);
 
-        $limit = $config->summary_limit;
+        @$limit = $config->summary_limit;
         if ($limit == '') {
             $limit = 200;
         }
@@ -536,7 +536,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $productalias = $leeloocourse->product_alias;
         $urlalias = $productid . '-' . $productalias;
         global $SESSION;
-        $jsessionid = $SESSION->jsession_id;
+        @$jsessionid = $SESSION->jsession_id;
 
         $certificartxt = get_string('certificar', 'block_leeloo_paid_courses');
 

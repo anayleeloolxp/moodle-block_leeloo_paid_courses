@@ -158,7 +158,9 @@ function block_leeloo_paid_courses_get_max_user_courses($showallcourses = false)
     $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
 
     $url = 'https://leeloolxp.com/api_moodle.php/?action=page_info';
-    $postdata = '&license_key=' . $leeloolxplicense;
+    $postdata = [
+        'license_key' => $leeloolxplicense,
+    ];
 
     $curl = new curl;
 
@@ -182,7 +184,9 @@ function block_leeloo_paid_courses_get_max_user_courses($showallcourses = false)
 
     $url = $leeloolxpurl . '/admin/Theme_setup/get_courses_for_sale_settings';
 
-    $postdata = '&license_key=' . $leeloolxplicense;
+    $postdata = [
+        'license_key' => $leeloolxplicense,
+    ];
 
     $curl = new curl;
 
@@ -199,7 +203,7 @@ function block_leeloo_paid_courses_get_max_user_courses($showallcourses = false)
     $resposedata = json_decode($output);
     $settingleeloolxp = $resposedata->data->courses_for_sale;
 
-    $limit = $settingleeloolxp->defaultmaxcourses;
+    $limit = @$settingleeloolxp->defaultmaxcourses;
 
     // If max course is not set then try get user preference.
     if (empty($settingleeloolxp->forcedefaultmaxcourses)) {
@@ -303,7 +307,7 @@ function block_leeloo_paid_courses_build_progress($course, $config) {
     require_once($CFG->dirroot . '/grade/lib.php');
     $completestring = get_string('complete');
 
-    if ($config->progressenabled == BLOCKS_LEELOO_PAID_COURSES_SHOWGRADES_NO) {
+    if (@$config->progressenabled == BLOCKS_LEELOO_PAID_COURSES_SHOWGRADES_NO) {
         return '';
     }
 
@@ -345,9 +349,13 @@ function block_leeloo_paid_courses_progress_percent($course) {
 /**
  * Fetch and Update Configration From L
  */
-function updateconfpaid_courses(){
-    $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
-    
+function updateconfpaid_courses() {
+    if (isset(get_config('block_leeloo_paid_courses')->license)) {
+        $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
+    } else {
+        return;
+    }
+
     $url = 'https://leeloolxp.com/api_moodle.php/?action=page_info';
     $postdata = '&license_key=' . $leeloolxplicense;
     $curl = new curl;
@@ -357,13 +365,11 @@ function updateconfpaid_courses(){
         'CURLOPT_POST' => 1,
     );
     if (!$output = $curl->post($url, $postdata, $options)) {
-        
+        $falsevar = 0;
     }
     $infoleeloolxp = json_decode($output);
     if ($infoleeloolxp->status != 'false') {
         $leeloolxpurl = $infoleeloolxp->data->install_url;
-    } else {
-        
     }
     $url = $leeloolxpurl . '/admin/Theme_setup/get_courses_for_sale_settings';
     $postdata = '&license_key=' . $leeloolxplicense;
@@ -374,7 +380,7 @@ function updateconfpaid_courses(){
         'CURLOPT_POST' => 1,
     );
     if (!$output = $curl->post($url, $postdata, $options)) {
-        
+        $falsevar = 0;
     }
     set_config('settingsjson', base64_encode($output), 'block_leeloo_paid_courses');
 }

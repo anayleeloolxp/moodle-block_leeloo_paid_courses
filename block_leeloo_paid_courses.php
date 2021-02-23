@@ -69,7 +69,11 @@ class block_leeloo_paid_courses extends block_base {
         $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
         $settingsjson = get_config('block_leeloo_paid_courses')->settingsjson;
         $resposedata = json_decode(base64_decode($settingsjson));
-        $settingleeloolxp = $resposedata->data->courses_for_sale;
+        if( isset( $resposedata->data->courses_for_sale ) ){
+            $settingleeloolxp = $resposedata->data->courses_for_sale;
+        }else{
+            $settingleeloolxp = new stdClass();
+        }
 
         if (empty($settingleeloolxp->course_title)) {
             $settingleeloolxp->course_title = get_string('displayname', 'block_leeloo_paid_courses');

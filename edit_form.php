@@ -55,7 +55,7 @@ class block_leeloo_paid_courses_edit_form extends block_edit_form {
             $availablecourseslist[$c->id] = $c->shortname . ' : ' . $c->fullname;
         }
 
-        $select = $mform->addElement('select', 'config_courses', get_string('featured_courses', 'block_leeloo_paid_courses'), $availablecourseslist, $attributes);
+        $select = $mform->addElement('select', 'config_courses', get_string('featured_courses', 'block_leeloo_paid_courses'), $availablecourseslist);
         $select->setMultiple(true);
     }
 }
