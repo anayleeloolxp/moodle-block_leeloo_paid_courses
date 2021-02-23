@@ -69,6 +69,11 @@ class admin_setting_configpaid_courses extends admin_setting {
         return $this->config_read($this->name);
     }
 
+    /**
+     * Write the setting
+     * @param string $data the data
+     * @return mixed true if ok string if error found
+     */
     public function write_setting($data) {
         if ($this->paramtype === PARAM_INT and $data === '') {
             // do not complain if '' used instead of 0
@@ -84,7 +89,7 @@ class admin_setting_configpaid_courses extends admin_setting {
 
     /**
      * Validate data before storage
-     * @param string data
+     * @param string $data the data
      * @return mixed true if ok string if error found
      */
     public function validate($data) {
@@ -111,6 +116,9 @@ class admin_setting_configpaid_courses extends admin_setting {
 
     /**
      * Return an XHTML string for the setting
+     * 
+     * @param string $data The data
+     * @param string $query The query
      * @return string Returns an XHTML string
      */
     public function output_html($data, $query='') {
