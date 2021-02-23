@@ -357,7 +357,9 @@ function updateconfpaid_courses() {
     }
 
     $url = 'https://leeloolxp.com/api_moodle.php/?action=page_info';
-    $postdata = '&license_key=' . $leeloolxplicense;
+    $postdata = [
+        'license_key' => $leeloolxplicense,
+    ];
     $curl = new curl;
     $options = array(
         'CURLOPT_RETURNTRANSFER' => true,
@@ -372,7 +374,9 @@ function updateconfpaid_courses() {
         $leeloolxpurl = $infoleeloolxp->data->install_url;
     }
     $url = $leeloolxpurl . '/admin/Theme_setup/get_courses_for_sale_settings';
-    $postdata = '&license_key=' . $leeloolxplicense;
+    $postdata = [
+        'license_key' => $leeloolxplicense,
+    ];
     $curl = new curl;
     $options = array(
         'CURLOPT_RETURNTRANSFER' => true,
