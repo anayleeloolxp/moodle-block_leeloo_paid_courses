@@ -372,6 +372,9 @@ function updateconfpaid_courses() {
     $infoleeloolxp = json_decode($output);
     if ($infoleeloolxp->status != 'false') {
         $leeloolxpurl = $infoleeloolxp->data->install_url;
+    } else {
+        set_config('settingsjson', base64_encode($output), 'block_leeloo_paid_courses');
+        return;
     }
     $url = $leeloolxpurl . '/admin/Theme_setup/get_courses_for_sale_settings';
     $postdata = [
