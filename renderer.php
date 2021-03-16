@@ -527,7 +527,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         global $USER;
         $courseid = $course->id;
         $coursename = $course->fullname;
-        $leeloocourse = $DB->get_record_sql('SELECT * FROM {tool_leeloo_courses_sync} where courseid = ' . $course->id);
+        $leeloocourse = $DB->get_record_sql('SELECT * FROM {tool_leeloo_courses_sync} where courseid = ?', [$course->id]);
 
         $context = context_course::instance($course->id);
 

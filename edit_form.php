@@ -47,7 +47,7 @@ class block_leeloo_paid_courses_edit_form extends block_edit_form {
             FROM {tool_leeloo_courses_sync}
             LEFT JOIN {course}
             ON {course}.id = {tool_leeloo_courses_sync}.courseid
-            where {tool_leeloo_courses_sync}.enabled = 1'
+            where {tool_leeloo_courses_sync}.enabled = ?', [1]
         );
 
         $availablecourseslist = array();
