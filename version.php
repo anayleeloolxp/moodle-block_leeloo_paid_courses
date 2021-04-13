@@ -33,4 +33,5 @@ $plugin->release = '1.0.0';
 $plugin->dependencies = array(
     'auth_leeloo_pay_sso' => 2020022105,
     'tool_leeloo_courses_sync' => 2019062700,
+    'local_leeloolxpcontentapi' => 2021031907,
 );
