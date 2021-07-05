@@ -349,7 +349,7 @@ function block_leeloo_paid_courses_progress_percent($course) {
 /**
  * Fetch and Update Configration From L
  */
-function updateconfpaid_courses() {
+function block_leeloo_paid_courses_updateconf() {
     if (isset(get_config('block_leeloo_paid_courses')->license)) {
         $leeloolxplicense = get_config('block_leeloo_paid_courses')->license;
     } else {
