@@ -43,7 +43,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         global $CFG, $DB;
         $html = '';
         // LearningWorks.
-        $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/leeloo_paid_courses/js/custom.js'));
+        $this->page->requires->js(new moodle_url('/blocks/leeloo_paid_courses/js/custom.js'));
         $role = $DB->get_record('role', array('shortname' => 'editingteacher'));
         $ismovingcourse = false;
         $courseordernumber = 0;
