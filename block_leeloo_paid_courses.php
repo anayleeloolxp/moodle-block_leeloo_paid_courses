@@ -84,10 +84,10 @@ class block_leeloo_paid_courses extends block_base {
             $settingleeloolxp = new stdClass();
         }
 
-        if (empty($settingleeloolxp->course_title)) {
-            $settingleeloolxp->course_title = get_string('displayname', 'block_leeloo_paid_courses');
+        if (empty($settingleeloolxp->section_title)) {
+            $settingleeloolxp->section_title = get_string('displayname', 'block_leeloo_paid_courses');
         }
-        $this->title = $settingleeloolxp->course_title;
+        $this->title = $settingleeloolxp->section_title;
 
         if (empty($settingleeloolxp->course_cat_id)) {
             $settingleeloolxp->course_cat_id = 0;
