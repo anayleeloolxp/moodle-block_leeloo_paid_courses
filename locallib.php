@@ -162,6 +162,9 @@ function block_leeloo_paid_courses_get_max_user_courses($showallcourses = false)
         'license_key' => $leeloolxplicense,
     ];
 
+    global $CFG;
+    require_once($CFG->dirroot . '/lib/filelib.php');
+
     $curl = new curl;
 
     $options = array(
@@ -355,6 +358,9 @@ function block_leeloo_paid_courses_updateconf() {
     } else {
         return;
     }
+
+    global $CFG;
+    require_once($CFG->dirroot . '/lib/filelib.php');
 
     $url = 'https://leeloolxp.com/api_moodle.php/?action=page_info';
     $postdata = [
