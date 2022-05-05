@@ -117,8 +117,8 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $fields = 'u.id, u.confirmed, u.username, ' . $allnames . ', ' .
             'u.maildisplay, u.mailformat, u.maildigest, u.email, u.emailstop, u.city, ' .
             'u.country, u.picture, u.idnumber, u.department, u.institution, ' .
-            'u.lang, u.timezone, u.lastaccess, u.mnethostid, u.imagealt, r.name AS rolename, r.sortorder, ' .
-            'r.shortname AS roleshortname, rn.name AS rolecoursealias';
+            'u.lang, u.timezone, u.lastaccess, u.mnethostid, u.imagealt, r.name rolename, r.sortorder, ' .
+            'r.shortname roleshortname, rn.name rolecoursealias';
 
         $html .= html_writer::start_div('leeloo_paid_courses_list');
         foreach ($courses as $key => $course) {
