@@ -36,7 +36,9 @@ define('BLOCKS_LEELOO_PAID_COURSES_DEFAULT_COL_SIZE', '3');
 define('BLOCKS_LEELOO_PAID_COURSES_SHOWTEACHERS_NO', '0');
 define('BLOCKS_LEELOO_PAID_COURSES_SHOWTEACHERS_YES', '1');
 require_once($CFG->libdir . '/completionlib.php');
+
 use core_completion\progress;
+
 /**
  * Display overview for courses
  *
@@ -321,8 +323,10 @@ function block_leeloo_paid_courses_build_progress($course, $config) {
         $percentage = 0;
     }
 
-    $bar = html_writer::div('', 'value', array('aria-valuenow' => "$percentage",
-        'aria-valuemin' => "0", 'aria-valuemax' => "100", 'style' => "width:$percentage%"));
+    $bar = html_writer::div('', 'value', array(
+        'aria-valuenow' => "$percentage",
+        'aria-valuemin' => "0", 'aria-valuemax' => "100", 'style' => "width:$percentage%"
+    ));
     $progress = html_writer::div($bar, 'progress', array('data-label' => "$percentage% $completestring"));
 
     return $progress;

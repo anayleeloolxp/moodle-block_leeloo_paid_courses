@@ -71,8 +71,10 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             $html .= get_string('movingcourse', 'block_leeloo_paid_courses', $a);
             $html .= $this->output->box_end();
 
-            $moveurl = new moodle_url('/blocks/leeloo_paid_courses/move.php',
-                array('sesskey' => sesskey(), 'moveto' => 0, 'courseid' => $movingcourseid));
+            $moveurl = new moodle_url(
+                '/blocks/leeloo_paid_courses/move.php',
+                array('sesskey' => sesskey(), 'moveto' => 0, 'courseid' => $movingcourseid)
+            );
             if (method_exists($this->output, 'image_url')) {
                 // Use the new method.
                 $moveicon = $this->output->image_url('movehere');
@@ -81,10 +83,14 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 $moveicon = $this->output->pix_url('movehere');
             }
             // Create move icon, so it can be used.
-            $movetofirsticon = html_writer::empty_tag('img',
-                array('src' => $moveicon,
+            $movetofirsticon = html_writer::empty_tag(
+                'img',
+                array(
+                    'src' => $moveicon,
                     'alt' => get_string('movetofirst', 'block_leeloo_paid_courses', $courses[$movingcourseid]->fullname),
-                    'title' => get_string('movehere')));
+                    'title' => get_string('movehere')
+                )
+            );
             $moveurl = html_writer::link($moveurl, $movetofirsticon);
             $html .= html_writer::tag('div', $moveurl, array('class' => 'movehere'));
         }
@@ -107,8 +113,10 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             $startvalue = 12;
             $courseclass = "list";
         } else {
-            $html .= html_writer::tag('a', 'Change View', array('href' => '#', 'id' => 'box-or-lines',
-                'styles' => '', 'class' => "$courseclass col-md-$startvalue span$startvalue $courseclass"));
+            $html .= html_writer::tag('a', 'Change View', array(
+                'href' => '#', 'id' => 'box-or-lines',
+                'styles' => '', 'class' => "$courseclass col-md-$startvalue span$startvalue $courseclass"
+            ));
         }
         $html .= html_writer::tag('div', '', array("class" => "hidden startgrid $courseclass", "grid-size" => $gridsplit));
         $html .= html_writer::div('', 'box flush');
@@ -135,7 +143,8 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
 
             $html .= $this->output->box_start(
                 "coursebox $courseclass span$startvalue col-md-$startvalue $courseclass col-xs-12",
-                "course-{$course->id}");
+                "course-{$course->id}"
+            );
             $html .= $this->course_image($course, $config);
 
             $teacherimages = html_writer::start_div('teacher_image_wrap');
@@ -162,12 +171,18 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             $html .= html_writer::start_tag('div', array('class' => 'course_title'));
             // If user is editing, then add move icons.
             if ($userediting && !$ismovingcourse) {
-                $moveicon = html_writer::empty_tag('img',
-                    array('src' => $moveicon->out(false),
+                $moveicon = html_writer::empty_tag(
+                    'img',
+                    array(
+                        'src' => $moveicon->out(false),
                         'alt' => get_string('movecourse', 'block_leeloo_paid_courses', $course->fullname),
-                        'title' => get_string('move')));
-                $moveurl = new moodle_url($this->page->url, array('sesskey' => sesskey(), 'movecourse' => 1,
-                    'courseid' => $course->id));
+                        'title' => get_string('move')
+                    )
+                );
+                $moveurl = new moodle_url($this->page->url, array(
+                    'sesskey' => sesskey(), 'movecourse' => 1,
+                    'courseid' => $course->id
+                ));
                 $moveurl = html_writer::link($moveurl, $moveicon);
                 $html .= html_writer::tag('div', $moveurl, array('class' => 'move'));
             }
@@ -186,8 +201,11 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 $html .= $this->output->heading(html_writer::link(
                     new moodle_url('/auth/mnet/jump.php', array(
                         'hostid' => $course->hostid,
-                        'wantsurl' => '/course/view.php?id=' . $course->remoteid)),
-                    format_string($course->shortname, true), $attributes) .
+                        'wantsurl' => '/course/view.php?id=' . $course->remoteid
+                    )),
+                    format_string($course->shortname, true),
+                    $attributes
+                ) .
                     ' (' . format_string($course->hostname) . ')', 2, 'title');
             }
             $html .= $this->output->box('', 'flush');
@@ -239,15 +257,21 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 $movehere = $this->output->pix_url('movehere');
             }
             if ($ismovingcourse) {
-                $moveurl = new moodle_url('/blocks/leeloo_paid_courses/move.php',
-                    array('sesskey' => sesskey(), 'moveto' => $courseordernumber, 'courseid' => $movingcourseid));
+                $moveurl = new moodle_url(
+                    '/blocks/leeloo_paid_courses/move.php',
+                    array('sesskey' => sesskey(), 'moveto' => $courseordernumber, 'courseid' => $movingcourseid)
+                );
                 $a = new stdClass();
                 $a->movingcoursename = $courses[$movingcourseid]->fullname;
                 $a->currentcoursename = $course->fullname;
-                $movehereicon = html_writer::empty_tag('img',
-                    array('src' => $movehere,
+                $movehereicon = html_writer::empty_tag(
+                    'img',
+                    array(
+                        'src' => $movehere,
                         'alt' => get_string('moveafterhere', 'block_leeloo_paid_courses', $a),
-                        'title' => get_string('movehere')));
+                        'title' => get_string('movehere')
+                    )
+                );
                 $moveurl = html_writer::link($moveurl, $movehereicon);
                 $html .= html_writer::tag('div', $moveurl, array('class' => 'movehere'));
             }
@@ -272,7 +296,11 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             $url = new moodle_url("/mod/$module/index.php", array('id' => $cid));
             $modulename = get_string('modulename', $module);
             $icontext = html_writer::link($url, $this->output->pix_icon(
-                'icon', $modulename, 'mod_' . $module, array('class' => 'iconlarge')));
+                'icon',
+                $modulename,
+                'mod_' . $module,
+                array('class' => 'iconlarge')
+            ));
             if (get_string_manager()->string_exists("activityoverview", $module)) {
                 $icontext .= get_string("activityoverview", $module);
             } else {
@@ -404,8 +432,10 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             } else {
                 $output .= get_string('youhavenomessages', 'block_leeloo_paid_courses');
             }
-            $output .= html_writer::link(new moodle_url('/message/index.php'),
-                get_string('message' . $plural, 'block_leeloo_paid_courses'));
+            $output .= html_writer::link(
+                new moodle_url('/message/index.php'),
+                get_string('message' . $plural, 'block_leeloo_paid_courses')
+            );
         }
         $output .= $this->output->box_end();
         $output .= $this->output->box('', 'flush');
@@ -431,19 +461,27 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         if ($course->id > 0 && $course->get_course_overviewfiles()) {
             foreach ($course->get_course_overviewfiles() as $file) {
                 $isimage = $file->is_valid_image();
-                $url = file_encode_url("$CFG->wwwroot/pluginfile.php",
+                $url = file_encode_url(
+                    "$CFG->wwwroot/pluginfile.php",
                     '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
-                    $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
+                        $file->get_filearea() . $file->get_filepath() . $file->get_filename(),
+                    !$isimage
+                );
                 if ($isimage) {
-                    if (is_null(@$config->leeloo_featured_courses_bgimage) ||
-                        $config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE) {
+                    if (
+                        is_null(@$config->leeloo_featured_courses_bgimage) ||
+                        $config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE
+                    ) {
                         // Embed the image url as a img tag sweet...
                         $image = html_writer::empty_tag('img', array('src' => $url, 'class' => 'course_image'));
                         return html_writer::div($image, 'image_wrap');
                     } else {
                         // We need a CSS soloution apparently lets give it to em.
-                        return html_writer::div('', 'course_image_embed',
-                            array("style" => 'background-image:url(' . $url . '); background-size:cover'));
+                        return html_writer::div(
+                            '',
+                            'course_image_embed',
+                            array("style" => 'background-image:url(' . $url . '); background-size:cover')
+                        );
                     }
                 } else {
                     return $this->course_image_defaults($config);
@@ -487,8 +525,11 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             return html_writer::div($image, 'image_wrap');
         } else {
             // We need a CSS solution apparently lets give it to 'em.
-            return html_writer::div('', 'course_image_embed',
-                array("style" => 'background-image:url(' . $imageurl . '); background-size:cover'));
+            return html_writer::div(
+                '',
+                'course_image_embed',
+                array("style" => 'background-image:url(' . $imageurl . '); background-size:cover')
+            );
         }
         // Where are the default at even?.
         return print_error('filenotreadable');
@@ -510,8 +551,12 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         }
 
         $context = \context_course::instance($course->id);
-        $summary = external_format_string($course->summary, $context,
-            1, array());
+        $summary = external_format_string(
+            $course->summary,
+            $context,
+            1,
+            array()
+        );
         return html_writer::div(substr(strip_tags($summary), 0, $limit) . '...', 'course_description_old');
     }
 
@@ -527,7 +572,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         global $USER;
         $courseid = $course->id;
         $coursename = $course->fullname;
-        $leeloocourse = $DB->get_record_sql('SELECT * FROM {tool_leeloo_courses_sync} where courseid = ?', [$course->id]);
+        $leeloocourse = $DB->get_record_sql("SELECT * FROM {tool_leeloo_courses_sync} where courseid = ?", [$course->id]);
 
         $context = context_course::instance($course->id);
 

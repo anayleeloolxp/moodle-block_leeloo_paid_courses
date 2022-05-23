@@ -1,9 +1,9 @@
 require(["jquery"],function($) {
-    
+
     $(".block_leeloo_paid_courses #box-or-lines").click(function(e) {
 
         var gridsize = parseInt($(this).closest('.block_leeloo_paid_courses').find(".startgrid").attr("grid-size"), 10);
-        
+
         e.preventDefault();
         $(this).toggleClass("grid");
 

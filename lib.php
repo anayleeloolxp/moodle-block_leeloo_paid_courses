@@ -50,7 +50,7 @@ class admin_setting_configpaid_courses extends admin_setting {
      * @param mixed $paramtype int means PARAM_XXX type, string is a allowed format in regex
      * @param int $size default field size
      */
-    public function __construct($name, $visiblename, $description, $defaultsetting, $paramtype=PARAM_RAW, $size=null) {
+    public function __construct($name, $visiblename, $description, $defaultsetting, $paramtype = PARAM_RAW, $size = null) {
         $this->paramtype = $paramtype;
         if (!is_null($size)) {
             $this->size  = $size;
@@ -100,10 +100,8 @@ class admin_setting_configpaid_courses extends admin_setting {
             } else {
                 return get_string('validateerror', 'admin');
             }
-
         } else if ($this->paramtype === PARAM_RAW) {
             return true;
-
         } else {
             $cleaned = clean_param($data, $this->paramtype);
             if ("$data" === "$cleaned") { // implicit conversion to string is needed to do exact comparison
@@ -121,9 +119,8 @@ class admin_setting_configpaid_courses extends admin_setting {
      * @param string $query The query
      * @return string Returns an XHTML string
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         $default = $this->get_defaultsetting();
-        return '<input type="hidden" size="'.$this->size.'" id="'.$this->get_id().'" name="'.$this->get_full_name().'" value="'.s($data).'" />';
-
+        return '<input type="hidden" size="' . $this->size . '" id="' . $this->get_id() . '" name="' . $this->get_full_name() . '" value="' . s($data) . '" />';
     }
 }
