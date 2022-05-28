@@ -155,7 +155,11 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 foreach ($teachers as $key => $teacher) {
                     $teachername = get_string('defaultcourseteacher') . ': ' . fullname($teacher);
                     $teachernames .= html_writer::tag('p', $teachername, array('class' => 'teacher_name'));
-                    $teacherimages .= html_writer::div($this->output->user_picture($teacher, array('size' => 50, 'class' => '')), 'teacher_image');
+
+                    $teacherimages .= html_writer::div(
+                        $this->output->user_picture($teacher, array('size' => 50, 'class' => '')),
+                        'teacher_image'
+                    );
                 }
             }
             $teacherimages .= html_writer::end_div();
@@ -391,7 +395,11 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $output .= '<div id="' . $id . '_caption" class="collapsibleregioncaption">';
         $output .= $caption . ' ';
         $output .= '</div><div id="' . $id . '_inner" class="collapsibleregioninner">';
-        $this->page->requires->js_init_call('M.block_leeloo_paid_courses.collapsible', array($id, $userpref, get_string('clicktohideshow')));
+
+        $this->page->requires->js_init_call(
+            'M.block_leeloo_paid_courses.collapsible',
+            array($id, $userpref, get_string('clicktohideshow'))
+        );
 
         return $output;
     }
@@ -519,7 +527,10 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         }
 
         // Do we need a CSS soloution or is a img good enough?.
-        if (is_null(@$config->leeloo_featured_courses_bgimage) || @$config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE) {
+        if (
+            is_null(@$config->leeloo_featured_courses_bgimage) ||
+            @$config->leeloo_featured_courses_bgimage == BLOCKS_LEELOO_PAID_COURSES_IMAGEASBACKGROUND_FALSE
+        ) {
             // Embed the image url as a img tag sweet...
             $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'course_image'));
             return html_writer::div($image, 'image_wrap');
@@ -601,7 +612,8 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
                 </a>
         </div>";
 
-        $leeloomodal = "<div class='modal fade leeloo_FC_Modal' tabindex='-1' aria-labelledby='gridSystemModalLabel' id='leelooModal_$courseid' role='dialog'>
+        $leeloomodal = "<div class='modal fade leeloo_FC_Modal' tabindex='-1' " .
+            "aria-labelledby='gridSystemModalLabel' id='leelooModal_$courseid' role='dialog'>
             <div class='modal-dialog'>
                 <div class='modal-content'>
                     <div class='modal-header'>

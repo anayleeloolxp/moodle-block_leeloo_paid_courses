@@ -25,8 +25,6 @@
 
 namespace block_leeloo_paid_courses\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for block_leeloo_paid_courses implementing null_provider.
  *

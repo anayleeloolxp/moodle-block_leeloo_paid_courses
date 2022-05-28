@@ -34,7 +34,7 @@ if ($ADMIN->fulltree) {
         get_string('license', 'block_leeloo_paid_courses'),
         0
     );
-    //$setting->set_updatedcallback(block_leeloo_paid_courses_updateconf());
+
     $settings->add($setting);
 
     $setting = new admin_setting_configpaid_courses('block_leeloo_paid_courses/settingsjson', '', '', '', PARAM_RAW);
