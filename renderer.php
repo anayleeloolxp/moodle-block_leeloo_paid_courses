@@ -502,7 +502,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             return $this->course_image_defaults($config);
         }
         // Where are the default at even?.
-        return throw new moodle_exception('error');
+        throw new moodle_exception('error');
     }
 
     /**
@@ -545,7 +545,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             );
         }
         // Where are the default at even?.
-        return throw new moodle_exception('filenotreadable');
+        throw new moodle_exception('filenotreadable');
     }
 
     /**
