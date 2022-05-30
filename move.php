@@ -37,9 +37,9 @@ $sortedcourses = array_keys($courses);
 $currentcourseindex = array_search($coursetomove, $sortedcourses);
 // If coursetomove is not found or moveto < 0 or > count($sortedcourses) then throw error.
 if ($currentcourseindex === false) {
-    print_error("invalidcourseid", null, null, $coursetomove);
+    throw new moodle_exception("invalidcourseid", null, null, $coursetomove);
 } else if (($moveto < 0) || ($moveto >= count($sortedcourses))) {
-    print_error("invalidaction");
+    throw new moodle_exception("invalidaction");
 }
 
 // If current course index is same as destination index then don't do anything.

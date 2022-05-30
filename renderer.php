@@ -99,7 +99,9 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
         $gridsplit = intval(12 / count($courses)); // Added intval to avoid any float.
 
         // Set a minimum size for the course 'cards'.
-        $colsize = intval(@$config->coursegridwidth) > 0 ? intval(@$config->coursegridwidth) : BLOCKS_LEELOO_PAID_COURSES_DEFAULT_COL_SIZE;
+        $colsize = intval(@$config->coursegridwidth) > 0 ?
+            intval(@$config->coursegridwidth) :
+            BLOCKS_LEELOO_PAID_COURSES_DEFAULT_COL_SIZE;
         if ($gridsplit < $colsize) {
             $gridsplit = $colsize;
         }
@@ -500,7 +502,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             return $this->course_image_defaults($config);
         }
         // Where are the default at even?.
-        return print_error('error');
+        return throw new moodle_exception('error');
     }
 
     /**
@@ -543,7 +545,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
             );
         }
         // Where are the default at even?.
-        return print_error('filenotreadable');
+        return throw new moodle_exception('filenotreadable');
     }
 
     /**
