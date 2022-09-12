@@ -75,7 +75,7 @@ class admin_setting_configpaid_courses extends admin_setting {
      * @return mixed true if ok string if error found
      */
     public function write_setting($data) {
-        if ($this->paramtype === PARAM_INT and $data === '') {
+        if ($this->paramtype === PARAM_INT && $data === '') {
             $data = 0;
         }
         $validated = $this->validate($data);

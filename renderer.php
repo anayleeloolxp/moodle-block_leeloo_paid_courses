@@ -379,7 +379,7 @@ class block_leeloo_paid_courses_renderer extends plugin_renderer_base {
      */
     protected function collapsible_region_start($classes, $id, $caption, $userpref = '', $default = false) {
         // Work out the initial state.
-        if (!empty($userpref) and is_string($userpref)) {
+        if (!empty($userpref) && is_string($userpref)) {
             user_preference_allow_ajax_update($userpref, PARAM_BOOL);
             $collapsed = get_user_preferences($userpref, $default);
         } else {
