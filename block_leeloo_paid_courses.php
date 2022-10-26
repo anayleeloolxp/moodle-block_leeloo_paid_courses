@@ -87,7 +87,13 @@ class block_leeloo_paid_courses extends block_base {
         if (empty($settingleeloolxp->section_title)) {
             $settingleeloolxp->section_title = get_string('displayname', 'block_leeloo_paid_courses');
         }
-        $this->title = $settingleeloolxp->section_title;
+
+        $summaryformatoptions = new stdClass();
+        $summaryformatoptions->noclean = false;
+        $summaryformatoptions->overflowdiv = false;
+        $summaryformatoptions->filter = true;
+
+        $this->title = format_text($settingleeloolxp->section_title, 1, $summaryformatoptions);
 
         if (empty($settingleeloolxp->course_cat_id)) {
             $settingleeloolxp->course_cat_id = 0;
